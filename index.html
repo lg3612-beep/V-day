@@ -32,14 +32,16 @@
   <div class="flex items-center justify-center h-screen">
     <div class="flex flex-col items-center p-4">
 
+      <!-- MAIN IMAGE -->
       <img
         id="imageDisplay"
-        src="./images/image1.gif"
+        src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZWZteW1pZ3c1bHgyODRxYjRsMng2YW1tcHVqa2Rta2Y3dmxscjZnZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7vzoQoXSIsBGwQp6bJ/giphy.gif"
         alt="Cute kitten"
         class="rounded-md h-[300px]"
         style="object-fit: cover;"
       />
 
+      <!-- QUESTION -->
       <h2
         id="valentineQuestion"
         class="text-4xl font-bold italic text-[#bd1e59] my-4 text-center"
@@ -75,7 +77,7 @@
             👟 Shoes
           </button>
           <button class="choiceBtn bg-pink-400 hover:bg-pink-500 text-white px-4 py-2 rounded-lg">
-            🕶️ Sunglasses
+            🕶️ Sunglasses for our trip
           </button>
           <button class="choiceBtn bg-pink-400 hover:bg-pink-500 text-white px-4 py-2 rounded-lg">
             👛 Wallet
@@ -113,16 +115,11 @@
     let buttonWidth = 80;
     let fontSize = 20;
 
-    const imagePaths = [
-      "./images/image1.gif",
-      "./images/image2.gif",
-      "./images/image3.gif",
-      "./images/image4.gif",
-      "./images/image5.gif",
-      "./images/image6.gif",
-      "./images/image7.gif"
-    ];
+    // Using same Giphy URL for all images to simplify
+    const imageURL = "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZWZteW1pZ3c1bHgyODRxYjRsMng2YW1tcHVqa2Rta2Y3dmxscjZnZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7vzoQoXSIsBGwQp6bJ/giphy.gif";
+    const imagePaths = Array(7).fill(imageURL); // always displays the same GIF
 
+    // NO button animation
     noButton.addEventListener('click', () => {
       if (noClickCount < 6) {
         noClickCount++;
@@ -149,14 +146,16 @@
       }
     });
 
+    // YES button
     yesButton.addEventListener('click', () => {
-      imageDisplay.src = "./images/image7.gif";
+      imageDisplay.src = imageURL;
       valentineQuestion.textContent = "Yayyy!! :3 💖";
       responseButtons.style.display = "none";
       giftChoices.classList.remove("hidden");
       confetti();
     });
 
+    // Gift choices
     choiceButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         choiceResult.textContent = `You chose: ${btn.textContent} 💕`;
@@ -166,3 +165,4 @@
   </script>
 </body>
 </html>
+
