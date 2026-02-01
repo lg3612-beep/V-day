@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Valentine's Day</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    .gradient-background {
+      background: linear-gradient(
+        180deg,
+        rgba(255, 208, 229, 1) 0%,
+        rgba(255, 232, 242, 1) 36%,
+        rgba(255, 255, 255, 1) 100%
+      );
+    }
+
+    .bounce2 {
+      animation: bounce2 2s ease infinite;
+    }
+
+    @keyframes bounce2 {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-20px); }
+      60% { transform: translateY(-10px); }
+    }
+  </style>
+</head>
+
+<body class="gradient-background">
+  <div class="flex items-center justify-center h-screen">
+    <div class="flex flex-col items-center p-4">
+
+      <img
+        id="imageDisplay"
+        src="./images/image1.gif"
+        alt="Cute kitten"
+        class="rounded-md h-[300px]"
+        style="object-fit: cover;"
+      />
+
+      <h2
+        id="valentineQuestion"
+        class="text-4xl font-bold italic text-[#bd1e59] my-4 text-center"
+      >
+        Will you be my Valentine?
+      </h2>
+
+      <!-- YES / NO BUTTONS -->
+      <div class="flex gap-4 pt-5 items-center" id="responseButtons">
+        <button
+          id="yesButton"
+          class="bounce2 rounded-md text-[20px] font-medium px-4 py-2 bg-green-500 text-white hover:bg-green-400 transition"
+        >
+          Yes
+        </button>
+
+        <button
+          id="noButton"
+          class="rounded-md text-[20px] font-medium px-4 py-2 bg-red-500 text-white hover:bg-red-700 transition"
+        >
+          No
+        </button>
+      </div>
+
+      <!-- VALENTINE GIFT CHOICES -->
+      <div id="giftChoices" class="hidden mt-6 text-center">
+        <h3 class="text-2xl font-bold text-[#bd1e59] mb-4">
+          What do you want for Valentine’s? 💝
+        </h3>
+
+        <div class="flex gap-4 justify-center">
+          <button class="choiceBtn bg-pink-400 hover:bg-pink-500 text-white px-4 py-2 rounded-lg">
+            👟 Shoes
+          </button>
+          <button class="choiceBtn bg-pink-400 hover:bg-pink-500 text-white px-4 py-2 rounded-lg">
+            🕶️ Sunglasses
+          </button>
+          <button class="choiceBtn bg-pink-400 hover:bg-pink-500 text-white px-4 py-2 rounded-lg">
+            👛 Wallet
+          </button>
+        </div>
+
+        <p id="choiceResult" class="mt-5 text-xl font-semibold text-[#bd1e59]"></p>
+
+        <p
+          id="screenshotHint"
+          class="mt-3 text-lg font-bold text-red-500 hidden"
+        >
+          pls send me a screenshot because idk how this works ily 💕
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="module">
+    import confetti from 'https://cdn.skypack.dev/canvas-confetti';
+
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+    const imageDisplay = document.getElementById('imageDisplay');
+    const valentineQuestion = document.getElementById('valentineQuestion');
+    const responseButtons = document.getElementById('responseButtons');
+    const giftChoices = document.getElementById('giftChoices');
+    const choiceButtons = document.querySelectorAll('.choiceBtn');
+    const choiceResult = document.getElementById('choiceResult');
+    const screenshotHint = document.getElementById('screenshotHint');
+
+    let noClickCount = 0;
+    let buttonHeight = 48;
+    let buttonWidth = 80;
+    let fontSize = 20;
+
+    const imagePaths = [
+      "./images/image1.gif",
+      "./images/image2.gif",
+      "./images/image3.gif",
+      "./images/image4.gif",
+      "./images/image5.gif",
+      "./images/image6.gif",
+      "./images/image7.gif"
+    ];
+
+    noButton.addEventListener('click', () => {
+      if (noClickCount < 6) {
+        noClickCount++;
+        imageDisplay.src = imagePaths[noClickCount];
+
+        buttonHeight += 35;
+        buttonWidth += 35;
+        fontSize += 25;
+
+        yesButton.style.height = `${buttonHeight}px`;
+        yesButton.style.width = `${buttonWidth}px`;
+        yesButton.style.fontSize = `${fontSize}px`;
+
+        const messages = [
+          "No",
+          "Are you sure?",
+          "Pookie please",
+          "Don't do this to me :(",
+          "You're breaking my heart",
+          "I'm gonna cry..."
+        ];
+
+        noButton.textContent = messages[noClickCount];
+      }
+    });
+
+    yesButton.addEventListener('click', () => {
+      imageDisplay.src = "./images/image7.gif";
+      valentineQuestion.textContent = "Yayyy!! :3 💖";
+      responseButtons.style.display = "none";
+      giftChoices.classList.remove("hidden");
+      confetti();
+    });
+
+    choiceButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        choiceResult.textContent = `You chose: ${btn.textContent} 💕`;
+        screenshotHint.classList.remove("hidden");
+      });
+    });
+  </script>
+</body>
+</html>
